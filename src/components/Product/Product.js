@@ -36,12 +36,15 @@ export default class Product extends Component {
     return this.state.total.toLocaleString(undefined, this.currencyOptions)
   }
 
+  // @dev different implementation of Digital Ocean 
+  // @dev instead of making a copy of the state object then update on top of the local copy of the state object
+  // @dev diectly update the global state object within the Product class
+  // @dev then pass in the updated global state object to the setState() method
+  // @dev reckon would be a better implementation in terms of performance. 
   add = (product) => {
-    
-    let localState = {...this.state}
-    localState.cart.push(product.name) 
-    localState.total += (product.price)
-    this.setState(localState)
+    this.state.cart.push(product.name) 
+    this.state.total += (product.price)
+    this.setState(this.state)
   }
 
   remove = () => {
